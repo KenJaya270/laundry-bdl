@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('orders_items', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal_order');
-            $table->date('tanggal_pengiriman');
-            $table->enum('status', ['belum dikirim', 'sudah dikirim', 'sedang proses'])->default('belum dikirim');
-            $table->float('berat_keseluruhan');
-            $table->string('catatan');
+            $table->foreignId('order_id');
+            $table->string('item_description');
+            $table->integer('quantity');
+            $table->integer('berat_item');
+            $table->integer('harga_item');
+            $table->integer('subtotal');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('orders_items');
     }
 };

@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('loyalty_points', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal_order');
-            $table->date('tanggal_pengiriman');
-            $table->enum('status', ['belum dikirim', 'sudah dikirim', 'sedang proses'])->default('belum dikirim');
-            $table->float('berat_keseluruhan');
-            $table->string('catatan');
+            $table->foreignId('customer_id');
+            $table->integer('points')->default(0);
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('loyalty_points');
     }
 };
